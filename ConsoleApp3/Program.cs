@@ -12,9 +12,9 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
-            IntPtr hWnd = GetScreen.findWindow("Bless Unleashed");
-            Bitmap b = GetScreen.getWindow(hWnd);
-            GetScreen.saveBitMap(b, "第一");
+           // IntPtr hWnd = GetScreen.findWindow("Bless Unleashed");
+          //  Bitmap b = GetScreen.getWindow(hWnd);
+           // GetScreen.saveBitMap(b, "第一");
         }
     }
 }

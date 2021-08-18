@@ -8,3 +8,13 @@ D:\python环境\抓图dll\BlessFindPic\BlessFindPic\ConsoleApp3\obj\Debug\Consol
 D:\python环境\抓图dll\BlessFindPic\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.csproj.CopyComplete
 D:\python环境\抓图dll\BlessFindPic\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.exe
 D:\python环境\抓图dll\BlessFindPic\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.pdb
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.csproj.AssemblyReference.cache
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.csproj.CoreCompileInputs.cache
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.exe
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.pdb
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\bin\Debug\ConsoleApp3.exe.config
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\bin\Debug\ConsoleApp3.exe
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\bin\Debug\ConsoleApp3.pdb
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\bin\Debug\BlessFindPic.dll
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\bin\Debug\BlessFindPic.pdb
+D:\python环境\抓图dll\BlessFindPic\ConsoleApp3\obj\Debug\ConsoleApp3.csproj.CopyComplete

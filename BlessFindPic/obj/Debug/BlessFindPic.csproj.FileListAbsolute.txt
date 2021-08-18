@@ -1,6 +1,0 @@
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\obj\Debug\BlessFindPic.csproj.CoreCompileInputs.cache
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\bin\Debug\BlessFindPic.dll
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\bin\Debug\BlessFindPic.pdb
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\obj\Debug\BlessFindPic.dll
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\obj\Debug\BlessFindPic.pdb
-D:\python环境\抓图dll\BlessFindPic\BlessFindPic\BlessFindPic\obj\Debug\BlessFindPic.csproj.AssemblyReference.cache
