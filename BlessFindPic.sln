@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlessFindPic", "BlessFindPic\BlessFindPic.csproj", "{EAA899B7-B77F-4ED6-9342-43A19A7E4E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp3", "ConsoleApp3\ConsoleApp3.csproj", "{7D596AD8-94A6-4D21-918E-172A87C54FEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAA899B7-B77F-4ED6-9342-43A19A7E4E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAA899B7-B77F-4ED6-9342-43A19A7E4E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAA899B7-B77F-4ED6-9342-43A19A7E4E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAA899B7-B77F-4ED6-9342-43A19A7E4E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D596AD8-94A6-4D21-918E-172A87C54FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D596AD8-94A6-4D21-918E-172A87C54FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D596AD8-94A6-4D21-918E-172A87C54FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D596AD8-94A6-4D21-918E-172A87C54FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F6E6CB2-5A40-4E3A-986B-661C6434D713}
+	EndGlobalSection
+EndGlobal
