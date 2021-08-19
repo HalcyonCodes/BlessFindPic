@@ -89,16 +89,17 @@ namespace BlessFindPic
         public static Bitmap getWindow(IntPtr hWnd)
         {
             IntPtr hscrdc = GetWindowDC(hWnd);
-            //Control control = Control.FromHandle(hWnd);
             RECT rc = new RECT();
             GetWindowRect(hWnd, ref rc);
             IntPtr hbitmap = CreateCompatibleBitmap(hscrdc, (rc.Right - rc.Left), (rc.Bottom - rc.Top));
             IntPtr hmemdc = CreateCompatibleDC(hscrdc);
             SelectObject(hmemdc, hbitmap);
             PrintWindow(hWnd, hmemdc, 0);
-            Bitmap bmp = Bitmap.FromHbitmap(hbitmap);
+            Bitmap b = Bitmap.FromHbitmap(hbitmap);
+            Bitmap bmp = b.Clone(new Rectangle(0, 0, (rc.Right - rc.Left), (rc.Bottom - rc.Top)), PixelFormat.Format24bppRgb);
             DeleteDC(hscrdc);
             DeleteDC(hmemdc);
+            b.Dispose();
             return bmp;
         }
 
@@ -148,19 +149,12 @@ namespace BlessFindPic
             //创建新图位图
             int width = right - left;
             int height = bottom - top;
-            Bitmap bitmap = new Bitmap(width, height);
+            Bitmap bitmap = new Bitmap(width, height,PixelFormat.Format24bppRgb);
             //创建作图区域
             Graphics graphic = Graphics.FromImage(bitmap);
-            
             //截取原图相应区域写入作图区
-
             graphic.DrawImage(fromImage, 0, 0, new Rectangle(left, top, width, height), GraphicsUnit.Pixel);
-            //从作图区生成新图
-            Image saveImage = Image.FromHbitmap(bitmap.GetHbitmap());
-            //保存图片
-            saveImage.Save(path + fileName + ".bmp", ImageFormat.Bmp);
-            //释放资源   
-            saveImage.Dispose();
+            bitmap.Save(path + fileName + ".bmp", ImageFormat.Bmp);
             graphic.Dispose();
             bitmap.Dispose();
         }
