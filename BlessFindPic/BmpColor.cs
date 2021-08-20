@@ -293,7 +293,9 @@ namespace BlessFindPic
             byte B = backColor.B, G = backColor.G, R = backColor.R;
             int Width = pData.Width, Height = pData.Height;
             int pStride = pData.Stride;
+
             IntPtr pIptr = pData.Scan0;
+
             byte* pPtr;
             int[,] PixelData = new int[Width * Height, 2];
             int i = 0;
@@ -301,7 +303,7 @@ namespace BlessFindPic
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    pPtr = (byte*)((int)pIptr + pStride * y + x * 3);
+                    pPtr = (byte*)((long)pIptr + pStride * y + x * 3);
                     if (B == pPtr[0] & G == pPtr[1] & R == pPtr[2])
                     {
 

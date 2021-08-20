@@ -26,21 +26,22 @@ namespace ConsoleApp3
             //Console.WriteLine(p[1]);
             //Console.ReadKey();
 
-            //String dd = @"C:\Users\Administrator\Desktop\dada\名字.bmp|C:\Users\Administrator\Desktop\dada\小图1.bmp";
-            //BmpColor.loadBmp(dd);
+            String dd = @"C:\Users\Administrator\Desktop\dada\锁头1.bmp";
+
+            BmpColor.loadBmp(dd);
             //Console.WriteLine(BmpColor.Instance.bmpTable.Count);
             //BmpColor.freeBmp();
             //Console.WriteLine(BmpColor.Instance.bmpTable.Count);
             //Console.ReadKey();
 
-            //IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
-            //int[] p = BmpColor.findAPicB(hWnd, 0, 0, 1296, 759, "小图1", 5);
+            IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
+            int[] p = BmpColor.findDAPicA(hWnd, 0, 0, 1296, 759, "锁头1", 15);
 
             //int[] p = BmpColor.findAPicA(hWnd, 0, 0, 1200, 700, @"C:\Users\Administrator\Desktop\dada\小图1.bmp", 5);
-            //Console.WriteLine(p[0]);
-            //Console.WriteLine(p[1]);
+            Console.WriteLine(p[0]);
+            Console.WriteLine(p[1]);
             //Console.WriteLine(BmpColor.Instance.bmpTable.Count);
-            //Console.ReadKey();
+            Console.ReadKey();
 
             /*
             BmpColor.loadBmp(@"C:\Users\Administrator\Desktop\dada\锁头1.bmp");
