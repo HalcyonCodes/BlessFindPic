@@ -19,10 +19,9 @@ namespace ConsoleApp3
             //GetScreen.saveBitMapByOffset(b, 400, 400, 600, 700, "名字", @"C:\Users\Administrator\Desktop\dada\");
             //String dd = @"C:\Users\Administrator\Desktop\dada\GSD.bmp";
 
-
             //IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
-            //int[] p = BmpColor.findAPicB(hWnd, 0, 0, 1296, 759, "小图1", 5);
-            //int[] p = BmpColor.findAPicA(hWnd, 0, 0, 800, 2000, @"C:\Users\Administrator\Desktop\dada\小图1.bmp", 5);
+            //int[] p = BmpColor.findAPicAB(hWnd, 0, 0, 1296, 759, "小图1", 5);
+            //int[] p = BmpColor.findAPicAA(hWnd, 0, 0, 800, 2000, @"C:\Users\Administrator\Desktop\dada\锁头1.bmp", 5);
             //Console.WriteLine(p[0]);
             //Console.WriteLine(p[1]);
             //Console.ReadKey();
@@ -43,15 +42,42 @@ namespace ConsoleApp3
             //Console.WriteLine(BmpColor.Instance.bmpTable.Count);
             //Console.ReadKey();
 
-            BmpColor.loadBmp(@"C:\Users\Administrator\Desktop\dada\小图1.bmp");
+            /*
+            BmpColor.loadBmp(@"C:\Users\Administrator\Desktop\dada\锁头1.bmp");
             IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
-            int[,] aa = BmpColor.findAPicNB(hWnd, 0, 0, 1200, 700, "小图1", 5);
+            int[,] aa = BmpColor.findAPicNB(hWnd, 0, 0, 1400, 900, "锁头1", 15);
             Console.WriteLine(aa.GetUpperBound(1));
-            Console.WriteLine(aa[0, 0]);
-            Console.WriteLine(aa[1, 0]);
+            for(int i = 0; i<aa.GetUpperBound(1) + 1; i++)
+            {
+                Console.WriteLine(aa[0, i]);
+                Console.WriteLine(aa[1, i]);
+            }
             Console.ReadKey();
+            */
 
+            /*
+            String dd = @"C:\Users\Administrator\Desktop\dada\名字.bmp|C:\Users\Administrator\Desktop\dada\小图1.bmp|C:\Users\Administrator\Desktop\dada\锁头1.bmp";
+            int h = BmpColor.loadBmpSub(dd);
+            IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
+            int[] aa = BmpColor.findNPicA(hWnd, 0, 0, 1400, 900, 15);
+            Console.WriteLine(aa[0]);
+            Console.WriteLine(aa[1]);
+            Console.WriteLine(aa[2]);
+            Console.ReadKey();
+            */
 
+            /*String dd = @"C:\Users\Administrator\Desktop\dada\名字.bmp|C:\Users\Administrator\Desktop\dada\小图1.bmp|C:\Users\Administrator\Desktop\dada\锁头1.bmp";
+            IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
+            int h = BmpColor.loadBmpSub(dd);
+            int[,] aa = BmpColor.findNPicN(hWnd, 0, 0, 1400, 900, 15);
+            for (int i = 0; i < aa.GetUpperBound(1) + 1; i++)
+            {
+                Console.WriteLine(aa[0, i]);
+                Console.WriteLine(aa[1, i]);
+                Console.WriteLine(aa[2, i]);
+            }*/
+            //Console.ReadKey();
+            
         }
     }
 }

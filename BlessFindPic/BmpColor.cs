@@ -14,9 +14,11 @@ namespace BlessFindPic
         private static BmpColor instance;
 
         public Hashtable bmpTable;
+        public Hashtable bmpSubTable;
         public BmpColor()
         {
             bmpTable = new Hashtable();
+            bmpSubTable = new Hashtable();
         }
         public static BmpColor Instance
         {
@@ -114,8 +116,11 @@ namespace BlessFindPic
                         }
                         if (isOk == false) { break; }
                     }
-                    if (isOk) { list.Add(new Point(w, h)); }
-                    if (isOnly) return list;
+                    if (isOk) { 
+                        list.Add(new Point(w, h));
+                        if (isOnly) return list;
+                    }
+                    
                     isOk = false;
                 }
             }
@@ -162,8 +167,11 @@ namespace BlessFindPic
                         }
                         if (isOk == false) { break; }
                     }
-                    if (isOk) { list.Add(new Point(w, h)); }
-                    //if (isOnly) return list;
+                    if (isOk) { 
+                        list.Add(new Point(w, h));
+                        if (isOnly) return list;
+                    }
+                    
                     isOk = false;
                 }
             }
@@ -207,8 +215,11 @@ namespace BlessFindPic
                             isOk = false; break;
                         }
                     }
-                    if (isOk) { list.Add(new Point(w, h)); }
-                    if (isOnly) return list;
+                    if (isOk) { 
+                        list.Add(new Point(w, h));
+                        if (isOnly) return list;
+                    }
+                    
                     isOk = false;
                 }
             }
@@ -319,6 +330,8 @@ namespace BlessFindPic
         #endregion
 
 
+
+
         /// <summary>
         /// 加载图片，把图片放进hashTable里
         /// </summary>
@@ -354,6 +367,46 @@ namespace BlessFindPic
         }
 
         /// <summary>
+        /// 清空后再加载图片到内存
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public static int loadBmpSub(String paths)
+        {
+            foreach (Bitmap val in Instance.bmpSubTable.Values)
+            {
+                val.Dispose();
+            }
+            Instance.bmpSubTable.Clear();
+
+            String[] subPaths = paths.Split('|');
+            for (int i = 0; i < subPaths.Length; i++)
+            {
+                Bitmap bitmap = new Bitmap(subPaths[i]);
+                int nameStartIndex = subPaths[i].LastIndexOf('\\') + 1;
+                int nameEndIndex = subPaths[i].LastIndexOf('.');
+                if (nameEndIndex == -1)
+                {
+                    Console.WriteLine("文件名错误：" + subPaths[i]);
+                    return -1;
+                }
+                int len = nameEndIndex - nameStartIndex;
+                String key = subPaths[i].Substring(nameStartIndex, len);
+                if (Instance.bmpSubTable.ContainsKey(key))
+                {
+                    Console.WriteLine("重复加载：" + key);
+                    return -1;
+                }
+                else
+                {
+                    Instance.bmpSubTable.Add(key, bitmap);
+                }
+
+            }
+            return 1;
+        }
+
+        /// <summary>
         /// 清空hashTable
         /// </summary>
         public static void freeBmp()
@@ -364,8 +417,13 @@ namespace BlessFindPic
                 val.Dispose();
             }
         }
+
+
+        //------------------------------------------------------
+        //命名规则：find + 哪个位置的图片(D为loadBmp加载的,S为loadBmpSub加载的,P为文件路径加载) + 几张图(A为1,N为多) + pic + 返回几个位置(A为1，N为多)
+        //------------------------------------------------------
         /// <summary>
-        /// 加载一个小图并根据小图返回第一个找到的坐标
+        /// 从文件路径加载的图片中按路径名称找1个图1个位置
         /// </summary>
         /// <param name="hWnd">窗口句柄</param>
         /// <param name="left">左边x坐标</param>
@@ -375,7 +433,7 @@ namespace BlessFindPic
         /// <param name="path">所要找的小图路径</param>
         /// <param name="similar">误差值</param>
         /// <returns>返回一个1维数组,0是x坐标，1是y坐标</returns>
-        public static int[] findAPicA(IntPtr hWnd, int left, int top, int right, int bottom, String path, int similar)
+        public static int[] findPAPicA(IntPtr hWnd, int left, int top, int right, int bottom, String path, int similar)
         {
             Bitmap pBmp = new Bitmap(path);
             Bitmap sBmp = GetScreen.getWindow(hWnd);
@@ -399,11 +457,11 @@ namespace BlessFindPic
            
         }
         /// <summary>
-        /// 从加载的图片中按图片名称找图
+        /// 从loadBmp加载的图片中按图片名称找1个图1个位置
         /// </summary>
         /// <param name="picName">图片名称</param>
         /// <returns></returns>
-        public static int[] findAPicB(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
+        public static int[] findDAPicA(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
         {
             Bitmap pBmp = Instance.bmpTable[picName] as Bitmap;
             Bitmap sBmp = GetScreen.getWindow(hWnd);
@@ -425,9 +483,36 @@ namespace BlessFindPic
             }
 
         }
+        /// <summary>
+        /// 从loadBmpSub加载的图片中按图片名称找1个图1个位置
+        /// </summary>
+        /// <param name="picName">图片名称</param>
+        /// <returns></returns>
+        public static int[] findSAPicA(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
+        {
+            Bitmap pBmp = Instance.bmpSubTable[picName] as Bitmap;
+            Bitmap sBmp = GetScreen.getWindow(hWnd);
+            if (left >= sBmp.Width) left = sBmp.Width;
+            if (right >= sBmp.Width) right = sBmp.Width;
+            if (top >= sBmp.Height) top = sBmp.Height;
+            if (bottom >= sBmp.Height) bottom = sBmp.Height;
+            List<Point> p = findPicOrigin(left, top, right, bottom, sBmp, pBmp, similar, true);
+            sBmp.Dispose();
+            if (p.Count == 0)
+            {
+                int[] result = { -1, -1 };
+                return result;
+            }
+            else
+            {
+                int[] result = { p[0].X, p[0].Y };
+                return result;
+            }
+
+        }
 
         /// <summary>
-        /// 通过图片路径加载图片，大图查找小图的多个位置
+        /// 从文件路径加载的图片中按路径名称找1个图多个位置
         /// </summary>
         /// <param name="path">小图本地路径</param>
         /// <returns>
@@ -435,7 +520,7 @@ namespace BlessFindPic
         /// 通过 数组.GetUpperBound(1) 获取图片个数的下标（第一维参数1，第二维参数2），为-1时表示没有找到
         /// 通过 数组[0,i]获取第i个x坐标,[1,i]获取第i个y坐标
         /// </returns>
-        public static int[,] findAPicNA (IntPtr hWnd, int left, int top, int right, int bottom, String path, int similar)
+        public static int[,] findPAPicN (IntPtr hWnd, int left, int top, int right, int bottom, String path, int similar)
         {
             Bitmap pBmp = new Bitmap(path);
             Bitmap sBmp = GetScreen.getWindow(hWnd);
@@ -466,12 +551,12 @@ namespace BlessFindPic
         }
 
         /// <summary>
-        /// 通过加载图片从一个大图查找在N个地方的一个小图
+        /// 从loadBmp加载的图片中按图片名称找1个图多个位置
         /// </summary>
         /// <param name="picName">图片名称</param>
         /// <param name="similar"></param>
         /// <returns></returns>
-        public static int[,] findAPicNB(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
+        public static int[,] findDAPicN(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
         {
             Bitmap pBmp = Instance.bmpTable[picName] as Bitmap;
             Bitmap sBmp = GetScreen.getWindow(hWnd);
@@ -499,6 +584,90 @@ namespace BlessFindPic
 
         }
 
+        /// <summary>
+        /// 从loadBmpSub加载的图片中找多个图中的第1个找到的图的1个位置
+        /// </summary>
+        /// <returns>1维数组，0为x坐标，1为y坐标，2为第几个图片,找不到时为-1</returns>
+        public static int[] findSNPicA(IntPtr hWnd, int left, int top, int right, int bottom, int similar)
+        {
+            Bitmap sBmp = GetScreen.getWindow(hWnd);
+            if (left >= sBmp.Width) left = sBmp.Width;
+            if (right >= sBmp.Width) right = sBmp.Width;
+            if (top >= sBmp.Height) top = sBmp.Height;
+            if (bottom >= sBmp.Height) bottom = sBmp.Height;
+            int index = 0;
+            foreach (var val in Instance.bmpSubTable.Values)
+            {
+                List<Point> p = findPicOrigin(left, top, right, bottom, sBmp, val as Bitmap, similar, true);
+                if (p.Count != 0)
+                {
+                    int[] subResult = new int[3];
+                    subResult[0] = p[0].X;
+                    subResult[1] = p[0].Y;
+                    subResult[2] = index;
+                    sBmp.Dispose();
+                    return subResult;
+                }
+                index++;
+            }
+            int[] result = new int[3];
+            result[0] = -1;
+            result[1] = -1;
+            result[2] = -1;
+            sBmp.Dispose();
+            return result;
+        }
+
+
+        /// <summary>
+        /// 从loadBmpSub加载的图片中找多个图多个位置
+        /// </summary>
+        /// <returns>
+        /// 返回一个二维数组{{x,y,index},{x,y,index}}第一维[0]和[1]是x,y坐标,[2]是图片的下标,
+        /// 第二维表示找到了几个找不到时为-1；
+        /// </returns>
+        public static int[,] findSNPicN(IntPtr hWnd, int left, int top, int right, int bottom, int similar)
+        {
+            Bitmap sBmp = GetScreen.getWindow(hWnd);
+            if (left >= sBmp.Width) left = sBmp.Width;
+            if (right >= sBmp.Width) right = sBmp.Width;
+            if (top >= sBmp.Height) top = sBmp.Height;
+            if (bottom >= sBmp.Height) bottom = sBmp.Height;
+            List<int[]> listTemp = new List<int[]>();
+            int i = 0;
+            int index = 0;
+            foreach (var val in Instance.bmpSubTable.Values)
+            {
+                List<Point> points = findPicOrigin(left, top, right, bottom, sBmp, val as Bitmap, similar, false);
+                if (points.Count != 0)
+                {
+                    foreach(var p in points)
+                    {
+                        int[] arryTemp = new int[3];
+                        arryTemp[0] = p.X;
+                        arryTemp[1] = p.Y;
+                        arryTemp[2] = index;
+                        listTemp.Add(arryTemp);
+                    }
+                    i++;
+                }
+                index++;
+            }
+            sBmp.Dispose();
+            int[,] result = new int[3, listTemp.Count];
+            int t = 0;
+            foreach(var val in listTemp)
+            {
+                
+                result[0, t] = val[0];
+                result[1, t] = val[1];
+                result[2, t] = val[2];
+                t++;
+            }
+
+            return result;
+        }
     }
+
 
 }
