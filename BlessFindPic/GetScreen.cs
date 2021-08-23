@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace BlessFindPic
 {
@@ -157,6 +157,27 @@ namespace BlessFindPic
             bitmap.Save(path + fileName + ".bmp", ImageFormat.Bmp);
             graphic.Dispose();
             bitmap.Dispose();
+        }
+        /// <summary>
+        /// 得到屏幕分辨率
+        /// </summary>
+        /// <returns>1维数组[0]X,[1]Y</returns>
+        public static int[] getScreenBound()
+        {
+            int[] result = new int[2];
+            result[1] = Screen.PrimaryScreen.Bounds.Height;
+            result[0] = Screen.PrimaryScreen.Bounds.Width;
+            return result;
+        }
+
+        public static int[] getWindowBasePoint(IntPtr hWnd)
+        {
+            RECT rc = new RECT();
+            GetWindowRect(hWnd, ref rc);
+            int[] result = new int[2];
+            result[0] = rc.Left;
+            result[1] = rc.Top;
+            return result;
         }
 
     }
