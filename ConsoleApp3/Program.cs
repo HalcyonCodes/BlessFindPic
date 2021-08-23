@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BlessFindPic;
 using System.Drawing;
 using System.Collections;
-
+using System.Threading;
 
 namespace ConsoleApp3
 {
@@ -78,12 +78,11 @@ namespace ConsoleApp3
                 Console.WriteLine(aa[2, i]);
             }*/
             //Console.ReadKey();
-            int[] aa = GetScreen.getScreenBound();
-            /*IntPtr hWnd = GetScreen.findWindow(null, "Bless Unleashed");
+            //int[] aa = GetScreen.getScreenBound();
             
-            int[] aa = GetScreen.getWindowBasePoint(hWnd);*/
-            Console.WriteLine(aa[0]);
-            Console.WriteLine(aa[1]);
+            /*int[] aa = GetScreen.getWindowBasePoint(hWnd);*/
+            //Console.WriteLine(aa[0]);
+            //Console.WriteLine(aa[1]);
             Console.ReadKey();
         }
     }

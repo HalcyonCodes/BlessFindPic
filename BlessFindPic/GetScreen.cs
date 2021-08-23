@@ -73,6 +73,12 @@ namespace BlessFindPic
         [DllImport("user32.dll")]
         static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
 
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        [DllImport("Gdi32.dll")]
+        public static extern int DeleteObject(IntPtr ho);
+
         public struct RECT
         {
             public int Left;                             //最左坐标
@@ -97,9 +103,16 @@ namespace BlessFindPic
             PrintWindow(hWnd, hmemdc, 0);
             Bitmap b = Bitmap.FromHbitmap(hbitmap);
             Bitmap bmp = b.Clone(new Rectangle(0, 0, (rc.Right - rc.Left), (rc.Bottom - rc.Top)), PixelFormat.Format24bppRgb);
+            ReleaseDC(hWnd,hscrdc);
+            //
             DeleteDC(hscrdc);
             DeleteDC(hmemdc);
-            b.Dispose();
+            DeleteDC(hbitmap);
+            //b.Dispose();
+            DeleteObject(hbitmap);
+            DeleteObject(hscrdc);
+            DeleteObject(hmemdc);
+            GC.Collect();
             return bmp;
         }
 

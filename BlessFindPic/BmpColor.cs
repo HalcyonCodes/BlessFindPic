@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace BlessFindPic
 {
     public class BmpColor
     {
+        
         private static BmpColor instance;
 
         public Hashtable bmpTable;
@@ -33,6 +35,7 @@ namespace BlessFindPic
                 return instance;
             }
         }
+
 
         /// <summary>
         /// 在大图里找小图
@@ -489,14 +492,15 @@ namespace BlessFindPic
         /// <returns>1维数组[0]x坐标[1]y坐标</returns>
         public static int[] findDAPicA(IntPtr hWnd, int left, int top, int right, int bottom, String picName, int similar)
         {
-            Bitmap pBmp = Instance.bmpTable[picName] as Bitmap;
+            //Bitmap pBmp = Instance.bmpTable[picName] as Bitmap;
             Bitmap sBmp = GetScreen.getWindow(hWnd);
             if (left >= sBmp.Width) left = sBmp.Width;
             if (right >= sBmp.Width) right = sBmp.Width;
             if (top >= sBmp.Height) top = sBmp.Height;
             if (bottom >= sBmp.Height) bottom = sBmp.Height;
-            List<Point> p = findPicOrigin(left, top, right, bottom, sBmp, pBmp, similar, true);
+            List<Point> p = findPicOrigin(left, top, right, bottom, sBmp, Instance.bmpTable[picName] as Bitmap, similar, true);
             sBmp.Dispose();
+            //pBmp.Dispose();
             if (p.Count == 0)
             {
                 int[] result = { -1, -1 };
@@ -719,6 +723,10 @@ namespace BlessFindPic
             }
             return result;
         }
+
+            
+        
+
     }
 
 
